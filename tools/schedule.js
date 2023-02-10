@@ -114,7 +114,7 @@ function formatSchedule(schedule, filter, abbr) {
 				return (filter[e.subject].includes(e.turn));
 			})[0]
 	
-			if (Class) formattedDayHours.push(`- ${hours[hourKey]} | ${abbr(Class.subject, Class.turn)} | ${Class.room}`);
+			if (Class) formattedDayHours.push(`- ${hours[hourKey]} - ${hours[parseInt(hourKey) + Class.time] ?? "xx:xx"} | ${abbr(Class.subject, Class.turn)} | ${Class.room}`);
 		}
 
 		if (formattedDayHours.length > 0) formattedEntries += "  " + formattedDayHours.join("\n  ");
@@ -166,7 +166,8 @@ function iterateTableRow(row) {
 			return {
 				subject: parts[0].trim(),
 				room: parts[1].trim(),
-				turn: parts[2].trim()
+				turn: parts[2].trim(),
+				time: (e.style.height === "116px") ? 2 : 1
 			}
 		})
 
@@ -181,6 +182,7 @@ function iterateTableRow(row) {
  * @property {string} subject
  * @property {string} room
  * @property {string} turn
+ * @property {number} time
  */
 
 /**
