@@ -167,7 +167,7 @@ function iterateTableRow(row) {
 				subject: parts[0].trim(),
 				room: parts[1].trim(),
 				turn: parts[2].trim(),
-				time: (e.style.height === "116px") ? 2 : 1
+				time: (e.style.height === "116px") ? 1 : 2
 			}
 		})
 
