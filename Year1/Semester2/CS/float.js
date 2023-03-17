@@ -18,7 +18,7 @@ MANUAL ALGORITHM
   7. Normalize the representations, moving the decimal point left or right until only the digit "1" is present on the left size of the decimal point. 
 Trim any "0" digits from the head of the number.
   8. Determine the offset exponent by counting the number of spaces to the left or right the decimal point moved, multiplying it by 1 or -1 for each 
-case respectively.
+case respectively. If moving to the left, start from 1.
     - 8.1 The programatic methods can be used to determine the offset exponent. Read step 7 of the programatic algorithm.
   9. Calculate the exponent by adding the offset exponent to the bias.
     - 9.1 If the offset exponent minus the bias equals 0, the value of the exponent is 0. Else skip to step 12.
