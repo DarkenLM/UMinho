@@ -49,7 +49,7 @@ it with "0" as needed.
   5. Get the mantissa bits: read the bits from (1 + exponent bit length) through (1 + exponent bit length) through (1 + exponent bit length + mantissa 
 bit length).
   6. If the exponent is greater than the double of the bias (2^(k-1) - 1, where k is the number of bits of the exponent of the float spec), the number 
-is a special representation.
+is a special representation. Else skip to step 7.
 	  - 6.1 If the exponent is equal to the double of the bias + 1, the value is infinity. Return sign * the symbol for infinity.
 	  - 6.2 Else, return the symbol for the NaN.
   7. Calculate the decimal value of the mantissa bits.
@@ -263,7 +263,7 @@ class Float {
 		  5. Get the mantissa bits: read the bits from (1 + exponent bit length) through (1 + exponent bit length) through (1 + exponent bit length + 
     mantissa bit length).
 		  6. If the exponent is greater than the double of the bias (2^(k-1) - 1, where k is the number of bits of the exponent of the float spec), the 
-    number is a special representation.
+    number is a special representation. Else skip to step 7.
 			  - 6.1 If the exponent is equal to the double of the bias + 1, the value is infinity. Return sign * the symbol for infinity.
 			  - 6.2 Else, return the symbol for the NaN.
 		  7. Calculate the decimal value of the mantissa bits.
