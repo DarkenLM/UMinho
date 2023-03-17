@@ -18,10 +18,10 @@ MANUAL ALGORITHM
   7. Normalize the representations, moving the decimal point left or right until only the digit "1" is present on the left size of the decimal point. 
 Trim any "0" digits from the head of the number.
   8. Determine the offset exponent by counting the number of spaces to the left or right the decimal point moved, multiplying it by 1 or -1 for each 
-acase respectively.
-    - 7.1 The programatic methods can be used to determine the offset exponent. Read step 7 of the programatic algorithm.
-  9. Calculate the exponent by adding the offset exponent to the bias. Skip to step 12.
-    - 9.1 If the offset exponent minus the bias equals 0, the value of the exponent is 0.
+case respectively.
+    - 8.1 The programatic methods can be used to determine the offset exponent. Read step 7 of the programatic algorithm.
+  9. Calculate the exponent by adding the offset exponent to the bias.
+    - 9.1 If the offset exponent minus the bias equals 0, the value of the exponent is 0. Else skip to step 12.
   10. If the exponent is negative, the number is subnormal. Set the exponent bits to all "0" digits. Denormalize the binary data by prefixing it with 
 "0" digits N times, where N is (bias - 2).
   11. Read the first N bits of the denormalized data, where N is the mantissa bit length. Suffix it with "0" digits until the mantissa bit length is 
@@ -31,14 +31,15 @@ representation exceeds the exponent bit length, do not prefix it.
   13. If the exponent bit representation length exceeds the exponent bit length, fill the exponent bits with "1" digits. Else skip to step 15.
   14. If the exponent is all "1" digits, set the mantissa to all "1" digits. Same if the absolute value of `num` exceeds (2^(k - 1) - 1, where k is 
 the number of bits of the float).
-  15. Read the mantissa bits from the normalized data: skip the first bit and read the next N bits of it, where N is the mantissa bit length. Prefix 
+  15. Read the mantissa bits from the normalized data: skip the first bit and read the next N bits of it, where N is the mantissa bit length. Suffix 
 it with "0" as needed.
     - 15.1 If the number is subnormal, read the mantissa from the first bit.
-  16. If the normalized data length exceeds the mantissa bit length, skip to step 19.
+  16. If the normalized data length exceeds the mantissa bit length, skip to step 18.
   17. If rounding is desired:
     - 17.1 If bits were trimmed from the normalized data, add the first one to the read data.
     - 17.2 Else, do nothing.
-  18. Suffix the data with "0" digits if needed until the mantissa bit length is reached,
+  18. Suffix the data with "0" digits if needed until the mantissa bit length is reached. If trim the number by it's tail if it's length exceeds the
+mantissa bit length.
   19. Add the mantissa bits to the representation.
 
 ## Binary to Decimal (manual)
@@ -52,7 +53,7 @@ bit length).
 is a special representation. Else skip to step 7.
 	  - 6.1 If the exponent is equal to the double of the bias + 1, the value is infinity. Return sign * the symbol for infinity.
 	  - 6.2 Else, return the symbol for the NaN.
-  7. Calculate the decimal value of the mantissa bits.
+  7. Calculate the decimal value of the mantissa bits. (exponents from -1 to -(k - 1), where k is the bit length of the mantissa).
   8. Else, if the exponent is 0, return (sign * mantissa * 2^(1 - bias))
   9. Else, return (sign * (1 + mantissa) * 2^(exponent - bias))
 */
