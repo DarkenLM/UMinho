@@ -111,7 +111,7 @@ function formatSchedule(schedule, filter, abbr) {
 
 		for (const [hourKey, hour] of Object.entries(day)) {
 			const Class = hour.filter(e => {
-				return (filter[e.subject].includes(e.turn));
+				return ((filter[e.subject] ?? []).includes(e.turn));
 			})[0]
 	
 			if (Class) formattedDayHours.push(`- ${hours[hourKey]} - ${hours[parseInt(hourKey) + Class.time] ?? "xx:xx"} | ${abbr(Class.subject, Class.turn)} | ${Class.room}`);
